@@ -10,6 +10,7 @@
 @var            checkbox noMenuIcons "Disable menu icons" 0
 @var            checkbox noHeatmap "Disable 'Most replayed' graph" 0
 @var            checkbox oldEmbedHead "Disable profile picture on embed" 0
+@var            checkbox oldStoryboard "Old storyboard when scrubbing through video" 0
 ==/UserStyle== */
 
 @-moz-document domain("www.youtube.com") {
@@ -348,6 +349,63 @@
             {
                 padding-left: 6px;
                 padding-top: 18px !important;
+            }
+        }
+    }
+    
+    :root when (@noHeatmap = 1)
+    {
+        .ytp-
+        {
+            &heat-map-container
+            {
+                display: none !important;
+            }
+            
+            &tooltip
+            {
+                &.ytp-preview
+                {
+                    // hacky since the preview is positioned with js
+                    margin-top: 24px;
+                }
+                
+                &-title
+                {
+                    display: none !important;
+                }
+                
+                &-text when (@oldStoryboard = 0)
+                {
+                    top: 33px !important;
+                }
+            }
+            
+            &big-mode .ytp-tooltip-text when (@oldStoryboard = 0)
+            {
+                top: 41px !important;
+            }
+        }
+    }
+    
+    :root when (@oldStoryboard = 1) {
+        .ytp-tooltip
+        {
+            &.ytp-preview:not(.ytp-text-detail)
+            {
+                background: #1c1c1ce6;
+                margin-top: 55px;
+                
+                .ytp-tooltip-text 
+                {
+                    background: #1c1c1ce6;
+                    top: 0;
+                }
+            }
+            
+            &-title
+            {
+                display: none !important;
             }
         }
     }
