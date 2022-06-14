@@ -1,0 +1,271 @@
+/* ==UserStyle==
+@name           YT Player Classicifier
+@namespace      https://github.com/YukisCoffee
+@version        1.0.0
+@description    Return the old scales of the YouTube player.
+@author         Taniko Yamamoto <kirasicecreamm@gmail.com>
+@preprocessor   less
+@var            checkbox smallerLike2019 "Use pre-2020 scaling (even smaller)" 0
+@var            checkbox oldMenuScale "Use old menu scalings" 0
+@var            checkbox noMenuIcons "Disable menu icons" 0
+==/UserStyle== */
+
+@-moz-document domain("www.youtube.com") {
+    // Define common player scale definitions depending on user
+    // scale preference.
+    .player-scale() when (@smallerLike2019 = 0)
+    {
+        @chrome-bottom-scale: 40px;
+        @chrome-button-width: 40px;
+        @chrome-progress-bar-position: 39px;
+        @chrome-text-line-height: 39px;
+    }
+    .player-scale() when (@smallerLike2019 = 1)
+    {
+        @chrome-bottom-scale: 36px;
+        @chrome-button-width: 36px;
+        @chrome-progress-bar-position: 35px;
+        @chrome-text-line-height: 35px;
+    }
+    
+    // Apply styles across the entire ytp namespace
+    // (Also apply over the ytp-embed class in order to
+    // not affect users using that)
+    .ytp-, .ytp-embed .ytp-
+    {
+        &chrome-bottom
+        {
+            .player-scale();
+            height: @chrome-bottom-scale;
+        }
+        
+        &progress-bar-container
+        {
+            .player-scale();
+            bottom: @chrome-progress-bar-position;
+        }
+        
+        &chrome-controls
+        {
+            .player-scale();
+            height: @chrome-bottom-scale;
+            line-height: @chrome-bottom-scale;
+            
+            & .ytp-button, & .ytp-replay-button
+            {
+                width: @chrome-button-width;
+                padding: 0;
+                
+                // Width override affects chapter menus, so
+                // undo these changes manually
+                &.ytp-chapter-title
+                {
+                    width: 100%;
+                }
+                
+                // Also apply these overrides to specially
+                // padded buttons
+                &.ytp-mute-button,
+                &.ytp-next-button,
+                &.ytp-miniplayer-button,
+                &.ytp-remote-button
+                {
+                    padding: 0;
+                }
+                
+                // Correct the pressed state after to not be
+                // positioned incorrectly
+                &[aria-pressed="true"]::after
+                {
+                    // Larger player scale definitions:
+                    &
+                    {
+                        height: 2px;
+                        border-radius: 2px;
+                        left: 10px;
+                        width: 20px;
+                        bottom: 8px;
+                    }
+                    
+                    // 2019 player scale definitions
+                    & when (@smallerLike2019 = 1)
+                    {
+                        width: 18px;
+                        left: 9px;
+                        bottom: 6px;
+                        height: 2px;
+                        border-radius: 2px;
+                    }
+                }
+            }
+            
+            // Play button should have its own overrides
+            // as it is slightly wider than the rest of the
+            // control buttons.
+            & .ytp-play-button
+            {
+                width: 46px;
+            }
+        }
+        
+        // Rescale line heights of the player text displays
+        &time-display, &chapter-container
+        {
+            .player-scale();
+            line-height: @chrome-text-line-height;
+        }
+        
+        &player-content
+        {
+            bottom: 53px;
+            
+            &:not(.ytp-upnext):not(.html5-endscreen)
+            {
+                top: 60px;
+            }
+        }
+        
+        // 2019 player scale had a smaller gradient as well.
+        // Therefore, shrink its size when using the setting.
+        &gradient-bottom when (@smallerLike2019 = 1)
+        {
+            height: 49px;
+            padding-top: 49px;
+        }
+        
+        &settings-menu when (@smallerLike2019 = 0)
+        {
+            bottom: 53px;
+        }
+        
+        // Settings menu should be positioned a little lower for the
+        // 2019 player scale.
+        &settings-menu when (@smallerLike2019 = 1)
+        {
+            bottom: 49px;
+            right: 12px;
+        }
+        
+        // Tooltips for 2019 player scale
+        // Lil hacky, but there's only one way to reposition
+        // them since they are positioned in JS
+        &tooltip.ytp-bottom when (@smallerLike2019 = 1)
+        {
+            margin-top: 12px;
+        }
+        
+        // Comfy feeling autoplay toggle in 2019 player scale
+        // An equally hacky mess but idc it works for now!
+        &autonav-toggle-button when (@smallerLike2019 = 1)
+        {
+            transform: scale(0.9251237);
+            top: 11px;
+        }
+        
+        // Misc styles
+        &skip-intro-button
+        {
+            bottom: 50px;
+            height: 40px;
+        }
+        
+        &webgl-spherical-control
+        {
+            top: 60px;
+        }
+        
+        &title-text
+        {
+            padding-top: 21px;
+        }
+    }
+    
+    // Correct caption scalings
+    .caption-window.ytp-caption-window-bottom
+    {
+        &.ytp-caption-window-bottom
+        {
+            & when (@smallerLike2019 = 0)
+            {
+                margin-bottom: 53px;
+            }
+
+            & when (@smallerLike2019 = 1)
+            {
+                margin-bottom: 49px;
+            }
+        }
+        
+        & svg, & .ytp-icon
+        {
+            width: 40px;
+            height: 40px;
+        }
+    }
+    
+    // Old menu scale definitions
+    :root when (@oldMenuScale = 1)
+    {
+        .ytp-
+        {
+            &settings-menu
+            {
+                right: 12px;
+                bottom: 49px;
+            }
+            
+            &popup
+            {
+                border-radius: 2px;
+            }
+            
+            &panel-menu
+            {
+                padding: 6px 0;
+                width: 100%;
+            }
+            
+            &panel-header
+            {
+                padding: 6px 0;
+                height: 33px;
+                font-size: 109%;
+            }
+            
+            &menuitem
+            {
+                height: 33px;
+                
+                &-label
+                {
+                    font-size: 118%;
+                    font-weight: 500;
+                    
+                    &, .ytp-menuitem-content
+                    {
+                        padding: 0 15px;
+                    }
+                }
+            }
+            
+            
+        }
+    }
+    
+    // Disable menu icons definitions
+    :root when (@noMenuIcons = 1)
+    {
+        .ytp-
+        {
+            &menuitem-icon
+            {
+                display: none !important;
+            }
+            
+            &menuitem-label when (@oldMenuScale = 0)
+            {
+                margin-left: 12px;
+            }
+        }
+    }
+}
