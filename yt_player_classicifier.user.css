@@ -8,6 +8,8 @@
 @var            checkbox smallerLike2019 "Use pre-2020 scaling (even smaller)" 0
 @var            checkbox oldMenuScale "Use old menu scalings" 0
 @var            checkbox noMenuIcons "Disable menu icons" 0
+@var            checkbox noHeatmap "Disable 'Most replayed' graph" 0
+@var            checkbox oldEmbedHead "Disable profile picture on embed" 0
 ==/UserStyle== */
 
 @-moz-document domain("www.youtube.com") {
@@ -248,6 +250,42 @@
                 }
             }
             
+            &panel-header
+            {
+                height: 33px;
+            }
+            
+            &big-mode .ytp-
+            {
+                &menuitem
+                {
+                    height: 49px;
+                    &-label
+                    {
+                        padding: 0 22px;
+                    }
+                }
+                
+                &panel-
+                {
+                    &header
+                    {
+                        height: 49px;
+                    }
+                    
+                    &title
+                    {
+                        padding: 0 15px;
+                    }
+                }
+                
+                &settings-menu
+                {
+                    right: 24px;
+                    bottom: 70px;
+                }
+            }
+            
             
         }
     }
@@ -265,6 +303,51 @@
             &menuitem-label when (@oldMenuScale = 0)
             {
                 padding-left: 15px;
+            }
+            
+            &big-mode .ytp-menuitem-label when (@oldMenuScale = 0)
+            {
+                padding-left: 22px;
+            }
+        }
+    }
+
+    :root when (@oldEmbedHead = 1)
+    {
+        .ytp-
+        {
+            &title-
+            {
+                &channel
+                {
+                    display: none;
+                }
+                
+                &text
+                {
+                    padding-left: 4px;
+                    padding-top: 12px !important;
+                }
+            }
+            
+            &watch-later-,
+            &share-
+            {
+                &title
+                {
+                    display: none;
+                }
+                
+                &button
+                {
+                    margin: 0;
+                }
+            }
+            
+            &big-mode .ytp-title-text
+            {
+                padding-left: 6px;
+                padding-top: 18px !important;
             }
         }
     }
