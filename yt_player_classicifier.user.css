@@ -249,6 +249,24 @@
                 }
             }
             
+            &big-mode .ytp-
+            {
+                &menuitem
+                {
+                    height: 49px;
+                    &-label
+                    {
+                        padding: 0 22px;
+                    }
+                }
+                
+                &settings-menu
+                {
+                    right: 24px;
+                    bottom: 70px;
+                }
+            }
+            
             
         }
     }
@@ -266,6 +284,11 @@
             &menuitem-label when (@oldMenuScale = 0)
             {
                 padding-left: 15px;
+            }
+            
+            &big-mode .ytp-menuitem-label when (@oldMenuScale = 0)
+            {
+                padding-left: 22px;
             }
         }
     }
