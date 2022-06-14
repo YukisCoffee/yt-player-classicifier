@@ -8,6 +8,7 @@
 @var            checkbox smallerLike2019 "Use pre-2020 scaling (even smaller)" 0
 @var            checkbox oldMenuScale "Use old menu scalings" 0
 @var            checkbox noMenuIcons "Disable menu icons" 0
+@var            checkbox noHeatmap "Disable 'Most replayed' graph" 0
 @var            checkbox oldEmbedHead "Disable profile picture on embed" 0
 ==/UserStyle== */
 
