@@ -260,6 +260,19 @@
                     }
                 }
                 
+                &panel-
+                {
+                    &header
+                    {
+                        height: 49px;
+                    }
+                    
+                    &title
+                    {
+                        padding: 0 15px;
+                    }
+                }
+                
                 &settings-menu
                 {
                     right: 24px;
