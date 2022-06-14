@@ -613,7 +613,7 @@
             
             &menuitem-label when (@oldMenuScale = 0)
             {
-                margin-left: 12px;
+                padding-left: 15px;
             }
         }
     }
