@@ -1,13 +1,13 @@
 /* ==UserStyle==
 @name           YT Player Classicifier
 @namespace      https://github.com/YukisCoffee
-@version        1.1.0
+@version        1.0.0
 @description    Return the old scales of the YouTube player.
 @author         Taniko Yamamoto <kirasicecreamm@gmail.com>
 @author         Aubrey Pankow <aubyomori@gmail.com>
 @preprocessor   less
 @var            checkbox smallerLike2019 "Use pre-2020 scaling (even smaller)"         0
-@var            checkbox oldMenuScale    "Use old menu scalings"                       0
+@var            select   menuType        "Menu type"                                   ["2015", "2019", "Current"]
 @var            checkbox noMenuIcons     "Disable menu icons"                          0
 @var            checkbox noHeatmap       "Disable 'Most replayed' graph"               0
 @var            checkbox oldEmbedHead    "Disable profile picture on embed"            0
@@ -209,8 +209,8 @@
         }
     }
     
-    // Old menu scale definitions
-    :root when (@oldMenuScale = 1)
+    // 2019 menu scale definitions
+    :root when (@menuType = 2019)
     {
         .ytp-
         {
@@ -304,12 +304,12 @@
                 display: none !important;
             }
             
-            &menuitem-label when (@oldMenuScale = 0)
+            &menuitem-label when (@menuType = Current)
             {
-                padding-left: 15px;
+                padding-left: 20px;
             }
             
-            &big-mode .ytp-menuitem-label when (@oldMenuScale = 0)
+            &big-mode .ytp-menuitem-label when (@menuType = Current)
             {
                 padding-left: 22px;
             }
@@ -467,6 +467,350 @@
                 &bottom
                 {
                     height: 75px !important;
+                }
+            }
+        }
+    }
+    
+    :root when (@menuType = 2015)
+    {
+        .ytp-
+        {
+            &contextmenu
+            {
+                
+                .ytp-menuitem {
+                    &[aria-checked="true"] .ytp-menuitem-toggle-checkbox
+                    {
+                        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwJSIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMTYgMTYiIHdpZHRoPSIxMDAlIj48cGF0aCBkPSJNNi45OSw5IEwxMi42NiwzIEwxNC42Niw1LjAzIEw3LjEyLDEzLjAwIEwxLjMzLDcuNzMgTDMuMzQsNS42NCBMNi45OSw5IFoiIGZpbGw9IiNmZmYiIC8+PC9zdmc+);
+                    }
+                    
+                    .ytp-menuitem-toggle-checkbox
+                    {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                
+            }
+            
+            &popup
+            {
+                background: #1c1c1ccc;
+                border-radius: 4px;
+            }
+            
+            &panel
+            {
+                min-width: 0 !important;
+                
+                &-menu
+                {
+                    padding: 0;
+                }
+                
+                &-header
+                {
+                    padding: 0;
+                    height: 25px;
+                    border-color: #444;
+                }
+                
+                &-options
+                {
+                    color: #b8b8b8;
+                    font-size: 11px;
+                }
+                
+                &-footer
+                {
+                    padding: 7px 0;
+                    color: #b8b8b8;
+                    font-size: 11px;
+                    font-weight: 400;
+                    
+                    a
+                    {
+                        color: #b8b8b8;
+                        text-decoration: underline;
+                    }
+                }
+                
+                &-back-button-container
+                {
+                    display: none;
+                }
+                
+                &-title
+                {
+                    height: 100%;
+                    line-height: 25px;
+                    font-size: 11px;
+                    color: #b8b8b8;
+                    font-weight: 400;
+                    padding-left: 30px;
+                    width: calc(100% - 30px);
+                    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwJSIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIxMDAlIj48cGF0aCBkPSJNMjEuMzMsMjIgTDE1LjMzLDE2IEwyMS4zMywxMCBMMTkuMzMsOCBMMTEuMjksMTYgTDE5LjMzLDI0IEwyMS4zMywyMiBaIiBmaWxsPSIjNjY2IiAvPjwvc3ZnPg==);
+                    background-position: left 8px center;
+                    background-size: 14px 14px;
+                    background-repeat: no-repeat;
+                }
+            }
+            
+            &settings-menu .ytp-
+            {
+                &menuitem
+                {
+                    &-toggle-checkbox
+                    {
+                        width: 40px;
+                        height: 15px;
+                        overflow: hidden;
+                        transition: all .2s cubic-bezier(.4, 0, 1, 1);
+                        
+                        &::before
+                        {
+                            content: "";
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            transform: translateX(-22px);
+                            width: 15px;
+                            height: 15px;
+                            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwJSIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMTYgMTYiIHdpZHRoPSIxMDAlIj48cGF0aCBkPSJNNi45OSw5IEwxMi42NiwzIEwxNC42Niw1LjAzIEw3LjEyLDEzLjAwIEwxLjMzLDcuNzMgTDMuMzQsNS42NCBMNi45OSw5IFoiIGZpbGw9IiNmZmYiIC8+PC9zdmc+);
+                            background-repeat: no-repeat;
+                            background-size: 15px 15px;
+                            background-position: center;
+                            transition: all .2s cubic-bezier(.4, 0, 1, 1);
+                        }
+                        
+                        &::after
+                        {
+                            width: 13px;
+                            height: 13px;
+                            box-shadow: none;
+                            left: 0;
+                            top: 0;
+                            margin-top: 0;
+                            background: #fff;
+                            transition: all .2s cubic-bezier(.4, 0, 1, 1);
+                        }
+                    }
+                    
+                    &[aria-checked="true"] .ytp-menuitem-toggle-checkbox
+                    {   
+                        &::before
+                        {
+                            transform: translateX(6px);
+                        }
+                        
+                        &::after
+                        {
+                            transform: translateX(25px);
+                        }
+                        
+                        background: #f12b24;
+                    }
+                }
+
+            }
+            
+            &menu-label-secondary
+            {
+                font-size: 100%;
+                color: #b8b8b8;
+            }
+            
+            &menuitem
+            {
+                height: 27px;
+                line-height: 1.1;
+                color: #bbb;
+                font-weight: 400;
+                
+                &:hover
+                {
+                    background: #1c1c1c;
+                }
+                
+                & path:not([fill="none"])
+                {
+                    fill: #bbb;
+                }
+                
+                &-icon
+                {
+                    svg
+                    {
+                        width: 20px;
+                        height: 20px;
+                    }
+                    
+                    width: 20px;
+                    padding: 0 5px;
+                }
+                
+                &-label
+                {
+                    text-shadow: 0 0 2px #00000080;
+                    font-size: 11px;
+                    font-weight: 400;
+                    padding-right: 0;
+                    
+                    & when (@noMenuIcons = 1)
+                    {
+                        padding-left: 10px;  
+                    }
+                }
+                
+                &[role="menuitemradio"]
+                {
+                    .ytp-menuitem-label
+                    {
+                        padding-left: 30px;
+                        padding-right: 0;
+                    }
+                    
+                    &[aria-checked="true"] .ytp-menuitem-label
+                    {
+                        background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTYgMTYiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI%2BPHBhdGggZD0iTTYuOTk4NjY2NjcsOSBMMTIuNjY1MzMzMywzIEwxNC42NjY2NjY3LDUuMDM3MzMzMzMgTDcuMTI0LDEzLjAwNiBMMS4zMzMzMzMzMyw3LjczNzMzMzMzIEwzLjM0MDY2NjY3LDUuNjQyIEw2Ljk5ODY2NjY3LDkgWiIgZmlsbD0iI2ZmZiI%2BPC9wYXRoPjwvc3ZnPg%3D%3D);
+                        background-size: 10px 10px;
+                        background-position: left 10px center;
+                    }
+                }
+                
+                &[aria-haspopup="true"] .ytp-menuitem-content
+                {
+                    padding-right: 25px;
+                    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwJSIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIxMDAlIj48cGF0aCBkPSJNMTYuOTgsMTYgTDEwLjk4LDEwIEwxMi45OCw4IEwyMS4wMSwxNiBMMTIuOTgsMjQgTDEwLjk4LDIyIEwxNi45OCwxNiBaIiBmaWxsPSIjNjY2IiAvPjwvc3ZnPg==);
+                    background-size: 14px 14px;
+                    background-position: right 5px center;
+                }
+                
+                &-content
+                {
+                    padding: 0 10px;
+                    padding-left: 0;
+                    max-width: 150px;
+                    font-size: 11px;
+                    color: #fff;
+                }
+                
+                &:not(:last-child)
+                {
+                    .ytp-menuitem-
+                    {
+                        &icon,
+                        &label,
+                        &content
+                        {
+                            border-bottom: 1px solid #444;
+                        }
+                    }
+                }
+            }
+            
+            &big-mode .ytp-menuitem-toggle-checkbox
+            {
+                width: 60px;
+                height: 23px;
+            }
+            
+            &big-mode .ytp-
+            {   
+                &panel-
+                {
+                    &header
+                    {
+                        height: 38px;
+                    }
+                    
+                    &title,
+                    {
+                        font-size: 17px;
+                        line-height: 38px;
+                        padding-left: 45px;
+                        background-position: 12px center;
+                        background-size: 21px 21px;
+                    }
+                    
+                    &options,
+                    &footer
+                    {
+                        font-size: 17px;
+                    }
+                    
+                    &footer
+                    {
+                        padding: 11px 0;
+                    }
+                }
+                
+                &menuitem
+                {
+                    height: 40px;
+                    
+                    &-label,
+                    &-content,
+                    {
+                        font-size: 17px;
+                    }
+                    
+                    &-label
+                    {
+                        padding-left: 15px;
+                    }
+                    
+                    &[aria-haspopup="true"] .ytp-menuitem-content
+                    {
+                        padding-right: 38px;
+                        background-size: 21px 21px;
+                        background-position: right 8px center;
+                    }
+                    
+                    &-toggle-checkbox
+                    {
+                        &::before
+                        {
+                            width: 23px;
+                            height: 23px;
+                            transform: translateX(-34px);
+                            background-size: 23px 23px;
+                        }
+                        
+                        &::after
+                        {
+                            width: 23px;
+                            height: 23px;
+                        }
+                    }
+                    
+                    &[aria-checked="true"] .ytp-menuitem-toggle-checkbox
+                    {
+                        &::before
+                        {
+                            transform: translateX(11px);
+                        }
+                        
+                        &::after
+                        {
+                            transform: translateX(37px);
+                        }
+                    }
+                    
+                    &[role="menuitemradio"]
+                    {
+                        .ytp-menuitem-label
+                        {
+                            padding-left: 45px;
+                        }
+                        
+                        &[aria-checked="true"] .ytp-menuitem-label
+                        {
+                            background-size: 15px 15px;
+                            background-position: left 15px center;
+                        }
+                    }
                 }
             }
         }
