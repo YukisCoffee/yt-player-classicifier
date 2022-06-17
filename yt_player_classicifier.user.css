@@ -37,7 +37,9 @@
     // Apply styles across the entire ytp namespace
     // (Also apply over the ytp-embed class in order to
     // not affect users using that)
-    .ytp-, .ytp-embed .ytp-
+    // only change ytp-embed when it's not big mode as ytp-embed
+    // overrides the ytp-big-mode code included in www-player.css
+    .ytp-, .ytp-embed:not(.ytp-big-mode) .ytp-
     {
         &chrome-bottom
         {
