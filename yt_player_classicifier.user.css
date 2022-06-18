@@ -107,6 +107,11 @@
                 }
             }
             
+            & .ytp-youtube-button
+            {
+                width: 67px;
+            }
+            
             // Play button should have its own overrides
             // as it is slightly wider than the rest of the
             // control buttons.
