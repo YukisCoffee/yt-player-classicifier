@@ -41,6 +41,11 @@
     // overrides the ytp-big-mode code included in www-player.css
     .ytp-, .ytp-embed:not(.ytp-big-mode) .ytp-
     {
+        &popup
+        {
+            outline: 0 !important;
+        }
+        
         &chrome-bottom
         {
             .player-scale();
