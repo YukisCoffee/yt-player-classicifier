@@ -490,9 +490,14 @@
     }
     
     :root when (@menuType = 2015)
-    {
+    {   
         .ytp-
         {
+            &quality-menu .ytp-menuitem-label
+            {
+                padding-right: 5px !important;
+            }
+            
             &speedslider
             {
                 margin: 0 10px;
@@ -780,6 +785,11 @@
             
             &big-mode .ytp-
             {   
+                &quality-menu .ytp-menuitem-label
+                {
+                    padding-right: 20px !important;
+                }
+                
                 &speedslider
                 {
                     margin: 0 15px;
