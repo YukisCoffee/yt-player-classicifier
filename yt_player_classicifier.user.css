@@ -16,7 +16,7 @@
 @var            checkbox lighterGradient "Less intense gradient"                       0
 ==/UserStyle== */
 
-@-moz-document domain("www.youtube.com") {
+@-moz-document domain("www.youtube.com"), domain("youtube-nocookie.com"), domain("youtube.googleapis.com") {
     // Define common player scale definitions depending on user
     // scale preference.
     .player-scale() when (@smallerLike2019 = 0)
