@@ -790,6 +790,12 @@
             
             &big-mode .ytp-
             {   
+                &contextmenu .ytp-menuitem-toggle-checkbox
+                {
+                    width: 23px;
+                    height: 23px;
+                }
+                
                 &quality-menu .ytp-menuitem-label
                 {
                     padding-right: 20px !important;
