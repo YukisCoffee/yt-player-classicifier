@@ -335,7 +335,16 @@
 
     :root when (@oldEmbedHead = 1)
     {
-        .ytp-
+        .ytp-embed-playlist .ytp-
+        {
+            &title-text
+            {
+                padding-left: 48px !important;
+            }
+        }
+        
+        .ytp-embed .ytp-,
+        .ytp-small-mode .ytp-
         {
             &title-
             {
@@ -349,6 +358,26 @@
                     padding-left: 4px;
                     padding-top: 12px !important;
                 }
+            }
+            
+            &overflow-button,
+            &playlist-menu-button
+            {
+                padding-top: 6px !important;
+                margin: 0 !important;
+                
+                &-text
+                {
+                    display: none;
+                }
+            }
+            
+            &playlist-menu-button
+            {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 44px;
             }
             
             &watch-later-,
