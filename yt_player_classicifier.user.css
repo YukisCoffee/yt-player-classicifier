@@ -377,12 +377,11 @@
                     margin: 0;
                 }
             }
-            
-            &big-mode .ytp-title-text
-            {
-                padding-left: 6px;
-                padding-top: 18px !important;
-            }
+        }
+        
+        .ytp-big-mode .ytp-title-text {
+            padding-left: 6px;
+            padding-top: 18px !important;
         }
     }
     
