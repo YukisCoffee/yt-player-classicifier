@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           YT Player Classicifier
 @namespace      https://github.com/YukisCoffee
-@version        1.2.0
+@version        1.2.1
 @description    Return the old scales of the YouTube player.
 @author         Taniko Yamamoto <kirasicecreamm@gmail.com>
 @author         Aubrey Pankow <aubyomori@gmail.com>
@@ -377,7 +377,7 @@
                 
                 &text
                 {
-                    padding-left: 4px;
+                    padding-left: 4px !important;
                     padding-top: 12px !important;
                 }
             }
