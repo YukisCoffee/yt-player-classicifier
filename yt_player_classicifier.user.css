@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           YT Player Classicifier
 @namespace      https://github.com/YukisCoffee
-@version        1.1.4
+@version        1.2.0
 @description    Return the old scales of the YouTube player.
 @author         Taniko Yamamoto <kirasicecreamm@gmail.com>
 @author         Aubrey Pankow <aubyomori@gmail.com>
@@ -14,6 +14,7 @@
 @var            checkbox oldStoryboard   "Old storyboard when scrubbing through video" 0
 @var            checkbox chromeOnHover   "Only show player UI on hover"                0
 @var            checkbox lighterGradient "Less intense gradient"                       0
+@var            checkbox hideMoreVideos  "Hide \"More videos\" on embed"               0
 ==/UserStyle== */
 
 @-moz-document domain("www.youtube.com"), domain("youtube-nocookie.com"), domain("youtube.googleapis.com") {
@@ -32,6 +33,10 @@
         @chrome-button-width: 36px;
         @chrome-progress-bar-position: 35px;
         @chrome-text-line-height: 35px;
+    }
+
+    .ytp-menuitem-icon:empty {
+        display: none !important;
     }
     
     // Apply styles across the entire ytp namespace
@@ -164,14 +169,27 @@
             right: 12px;
         }
         
-        // Tooltips for 2019 player scale
-        // Lil hacky, but there's only one way to reposition
-        // them since they are positioned in JS
-        &tooltip.ytp-bottom when (@smallerLike2019 = 1)
+        // Tooltips
+        &tooltip.ytp-bottom:not(.ytp-tooltip-opaque),
+        &tooltip.ytp-preview.ytp-text-detail
         {
-            margin-top: 12px;
+            top: unset !important;
+            bottom: 54px !important;
+
+            & when (@smallerLike2019 = 1) {
+                bottom: 50px !important;
+            }
+
+            .ytp-big-mode & {
+                bottom: 75px !important;
+            }
         }
         
+        // Fix scaling with modern storyboard preview
+        &tooltip.ytp-preview:not(.ytp-text-detail) when (@oldStoryboard = 0) {
+            transform: translateY(-29px); // I fucking hate CSS
+        }
+
         // Comfy feeling autoplay toggle in 2019 player scale
         // An equally hacky mess but idc it works for now!
         &autonav-toggle-button when (@smallerLike2019 = 1)
@@ -199,19 +217,16 @@
     }
     
     // Correct caption scalings
-    .caption-window.ytp-caption-window-bottom
+    .html5-video-player:not(.ytp-autohide) .caption-window.ytp-caption-window-bottom
     {
-        &.ytp-caption-window-bottom
+        & when (@smallerLike2019 = 0)
         {
-            & when (@smallerLike2019 = 0)
-            {
-                margin-bottom: 53px;
-            }
+            margin-bottom: 53px;
+        }
 
-            & when (@smallerLike2019 = 1)
-            {
-                margin-bottom: 49px;
-            }
+        & when (@smallerLike2019 = 1)
+        {
+            margin-bottom: 49px;
         }
         
         & svg, & .ytp-icon
@@ -220,9 +235,14 @@
             height: 40px;
         }
     }
+
+    .html5-video-player:not(:hover) .caption-window.ytp-caption-window-bottom when (@chromeOnHover = 1)
+    {
+        margin-bottom: 0;
+    }
     
     // 2019 menu scale definitions
-    :root when (@menuType = 2019)
+    & when (@menuType = 2019)
     {
         .ytp-
         {
@@ -268,6 +288,16 @@
                     {
                         padding: 0 15px;
                     }
+
+                    .ytp-menuitem-icon:not(:empty) + & when (@noMenuIcons = 0)
+                    {
+                        padding-left: 0;
+                    }
+                }
+
+                &[role="menuitemradio"] .ytp-menuitem-label
+                {
+                    text-align: right;
                 }
             }
             
@@ -312,7 +342,7 @@
     }
     
     // Disable menu icons definitions
-    :root when (@noMenuIcons = 1)
+    & when (@noMenuIcons = 1)
     {
         .ytp-
         {
@@ -333,7 +363,7 @@
         }
     }
 
-    :root when (@oldEmbedHead = 1)
+    & when (@oldEmbedHead = 1)
     {
         .ytp-embed .ytp-,
         .ytp-small-mode .ytp-
@@ -388,7 +418,7 @@
         }
     }
     
-    :root when (@noHeatmap = 1)
+    & when (@noHeatmap = 1)
     {
         .ytp-
         {
@@ -398,13 +428,7 @@
             }
             
             &tooltip
-            {
-                &.ytp-preview
-                {
-                    // hacky since the preview is positioned with js
-                    margin-top: 24px;
-                }
-                
+            {   
                 &-title
                 {
                     display: none !important;
@@ -423,18 +447,12 @@
         }
     }
     
-    :root when (@oldStoryboard = 1) {
+    & when (@oldStoryboard = 1) {
         .ytp-tooltip
         {
             &.ytp-preview:not(.ytp-text-detail)
             {
                 background: #1c1c1ce6;
-                margin-top: 37px;
-                
-                & when (@smallerLike2019 = 1)
-                {
-                    margin-top: 41px;
-                }
                 
                 .ytp-tooltip-text 
                 {
@@ -450,7 +468,7 @@
         }
     }
     
-    :root when (@chromeOnHover = 1)
+    & when (@chromeOnHover = 1)
     {
         .html5-video-player:not(:hover) .ytp-
         {
@@ -474,7 +492,7 @@
         }
     }
     
-    :root when (@lighterGradient = 1)
+    & when (@lighterGradient = 1)
     {
         .ytp-
         {
@@ -508,8 +526,12 @@
             }
         }
     }
+
+    .ytp-pause-overlay-container when (@hideMoreVideos = 1) {
+        display: none;
+    }
     
-    :root when (@menuType = 2015)
+    & when (@menuType = 2015)
     {   
         .ytp-
         {
@@ -565,7 +587,11 @@
             
             &contextmenu
             {
-                
+                a
+                {
+                    color: #bbb;
+                }
+
                 .ytp-menuitem {
                     &[aria-checked="true"] .ytp-menuitem-toggle-checkbox
                     {
@@ -743,10 +769,11 @@
                     font-size: 11px;
                     font-weight: 400;
                     padding-right: 0;
-                    
-                    & when (@noMenuIcons = 1)
+                    padding-left: 10px;
+
+                    .ytp-menuitem-icon:not(:empty) + & when (@noMenuIcons = 0)
                     {
-                        padding-left: 10px;  
+                        padding-left: 0;
                     }
                 }
                 
@@ -892,6 +919,23 @@
                     &-label
                     {
                         padding-left: 15px;
+
+                        .ytp-menuitem-icon:not(:empty) + & when (@noMenuIcons = 1)
+                        {
+                            padding-left: 0;
+                        }
+                    }
+
+                    &-icon
+                    {
+                        padding: 0 8px;
+                        width: 30px;
+
+                        svg
+                        {
+                            width: 30px;
+                            height: 30px;
+                        }
                     }
                     
                     &[aria-haspopup="true"] .ytp-menuitem-content
