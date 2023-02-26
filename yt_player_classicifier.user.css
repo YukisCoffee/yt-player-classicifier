@@ -339,6 +339,12 @@
             
             
         }
+            /* Rounding */
+    .ytp-settings-menu.ytp-rounded-menu, .ytp-screen-mode-menu.ytp-rounded-menu {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
     }
     
     // Disable menu icons definitions
@@ -532,7 +538,13 @@
     }
     
     & when (@menuType = 2015)
-    {   
+    {
+            /* Rounding */
+    .ytp-settings-menu.ytp-rounded-menu, .ytp-screen-mode-menu.ytp-rounded-menu {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
         .ytp-
         {
             &quality-menu .ytp-menuitem-label
@@ -725,7 +737,6 @@
                         background: #f12b24;
                     }
                 }
-
             }
             
             &menu-label-secondary
@@ -987,6 +998,7 @@
                             background-size: 15px 15px;
                             background-position: left 15px center;
                         }
+
                     }
                 }
             }
