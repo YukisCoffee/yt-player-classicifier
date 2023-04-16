@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           YT Player Classicifier
 @namespace      https://github.com/YukisCoffee
-@version        1.2.1
+@version        1.3.0
 @description    Return the old scales of the YouTube player.
 @author         Taniko Yamamoto <kirasicecreamm@gmail.com>
 @author         Aubrey Pankow <aubyomori@gmail.com>
@@ -15,6 +15,7 @@
 @var            checkbox chromeOnHover   "Only show player UI on hover"                0
 @var            checkbox lighterGradient "Less intense gradient"                       0
 @var            checkbox hideMoreVideos  "Hide \"More videos\" on embed"               0
+@var            checkbox oldErrors       "Old player errors"                           0
 ==/UserStyle== */
 
 @-moz-document domain("www.youtube.com"), domain("youtube-nocookie.com"), domain("youtube.googleapis.com") {
@@ -39,12 +40,16 @@
         display: none !important;
     }
     
+    .ytp-videowall-still-round-medium .ytp-videowall-still-image {
+        border-radius: 0;
+    }
+    
     // Apply styles across the entire ytp namespace
     // (Also apply over the ytp-embed class in order to
     // not affect users using that)
     // only change ytp-embed when it's not big mode as ytp-embed
     // overrides the ytp-big-mode code included in www-player.css
-    .ytp-, .ytp-embed:not(.ytp-big-mode) .ytp-
+    .ytp-, .ytp-embed:not(.ytp-big-mode) .ytp-, .ytp-small-mode .ytp-
     {
         &popup
         {
@@ -208,11 +213,6 @@
         &webgl-spherical-control
         {
             top: 60px;
-        }
-        
-        &title-text
-        {
-            padding-top: 21px;
         }
     }
     
@@ -488,6 +488,28 @@
                 {
                     opacity: 0;
                 }
+            }
+        }
+    }
+    
+    & when (@oldErrors = 1)
+    {
+        .ytp-error {
+            background: url("https://lh3.googleusercontent.com/pw/AL9nZEVqpHgMTsooIDDFibEdw5mA66kXus8QZKELsMMoLrnivKljI4jhjFf83rABr1FQgD2vQuO4YA83Ya96urMMnHnBm6fAEQANj3LsTdDoQcBuCNm46sQyrt0NvHvppNcJjEvckAEF1bhzM7lZVsLWFUrx=w800-h450-no?authuser=0") no-repeat;
+            background-size: cover;
+        }
+        
+        .ytp-error-icon-container {
+            display: none;
+        }
+        
+        .ytp-error-content-wrap-reason {
+            text-align: center;
+            line-height: 100%;
+            
+            * {
+                font-size: 13px;
+                font-weight: 400;
             }
         }
     }
