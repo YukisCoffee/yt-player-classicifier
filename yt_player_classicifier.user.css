@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           YT Player Classicifier
 @namespace      https://github.com/YukisCoffee
-@version        1.3.0
+@version        1.3.1
 @description    Return the old scales of the YouTube player.
 @author         Taniko Yamamoto <kirasicecreamm@gmail.com>
 @author         Aubrey Pankow <aubyomori@gmail.com>
@@ -16,6 +16,7 @@
 @var            checkbox lighterGradient "Less intense gradient"                       0
 @var            checkbox hideMoreVideos  "Hide \"More videos\" on embed"               0
 @var            checkbox oldErrors       "Old player errors"                           0
+@var            checkbox hideAutonav     "Hide modern autoplay toggle"                 0
 ==/UserStyle== */
 
 @-moz-document domain("www.youtube.com"), domain("youtube-nocookie.com"), domain("youtube.googleapis.com") {
@@ -1013,5 +1014,10 @@
                 }
             }
         }
+    }
+    
+    .ytp-button[data-tooltip-target-id="ytp-autonav-toggle-button"] when (@hideAutonav = 1)
+    {
+        display: none;
     }
 }
